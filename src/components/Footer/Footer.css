@@ -1,0 +1,24 @@
+.footer-title {
+  cursor: pointer;
+}
+.footer-nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer-nav li {
+  list-style: none;
+  margin-right: 20px;
+  opacity: 0.8;
+}
+.footer-nav li:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+.social-icon li {
+  font-size: 24px;
+  margin-left: 20px;
+}
+.copyright {
+  opacity: 0.8;
+}

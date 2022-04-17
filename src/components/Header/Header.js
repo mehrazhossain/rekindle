@@ -6,10 +6,7 @@ const Header = () => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
       <Container>
-        <Navbar.Brand href="#home">
-          {/* 
-            //TODO: Font Change
-            */}
+        <Navbar.Brand href="#home" className="h3">
           rekindle
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -24,8 +21,8 @@ const Header = () => {
               Reviews
             </Nav.Link>
             <Nav.Link href="#deets">About me</Nav.Link>
-            <Nav.Link className="btn login-btn" href="#deets">
-              Login
+            <Nav.Link className="btn login-btn" href="#dees">
+              <span className="h6">Login</span>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
