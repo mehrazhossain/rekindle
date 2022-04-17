@@ -6,6 +6,9 @@ import Footer from './components/Footer/Footer';
 import Services from './components/Services/Services';
 import { Routes, Route } from 'react-router-dom';
 import ServiceDetail from './components/ServiceDetail/ServiceDetail';
+import Blogs from './components/Blogs/Blogs';
+import AboutMe from './components/AboutMe/AboutMe';
+import Login from './components/Login/Login';
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
           path="/service/:serviceId"
           element={<ServiceDetail></ServiceDetail>}
         ></Route>
+        <Route path="/blogs" element={<Blogs></Blogs>}></Route>
+        <Route path="/about" element={<AboutMe></AboutMe>}></Route>
+        <Route path="/login" element={<Login></Login>}></Route>
       </Routes>
       <Footer></Footer>
     </>

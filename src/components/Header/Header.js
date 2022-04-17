@@ -1,5 +1,7 @@
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import CustomLink from '../CustomLink/CustomLink';
 import './Header.css';
 
 const Header = () => {
@@ -11,10 +13,8 @@ const Header = () => {
       bg="light"
       variant="light"
     >
-      <Container>
-        <Navbar.Brand href="#home" className="font-weight-bold h3">
-          rekindle
-        </Navbar.Brand>
+      <Container className="text-dark">
+        <Navbar.Brand className="font-weight-bold h3">rekindle</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
@@ -22,13 +22,19 @@ const Header = () => {
             <Nav.Link href="#pricing">Pricing</Nav.Link> */}
           </Nav>
           <Nav>
-            <Nav.Link href="#deets">Home</Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              Reviews
+            <Nav.Link>
+              <CustomLink to="/">Home</CustomLink>
             </Nav.Link>
-            <Nav.Link href="#deets">About me</Nav.Link>
-            <Nav.Link className="btn login-btn" href="#dees">
-              <span className="h6">Login</span>
+            <Nav.Link>
+              <CustomLink to={'/blogs'}>Blogs</CustomLink>
+            </Nav.Link>
+            <Nav.Link>
+              <CustomLink to={'/about'}>About me</CustomLink>
+            </Nav.Link>
+            <Nav.Link className="btn login-btn">
+              <span className="h6">
+                <CustomLink to={'/login'}>Login</CustomLink>
+              </span>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
