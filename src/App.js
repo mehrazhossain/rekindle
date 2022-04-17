@@ -1,11 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './components/Header/Header';
+import Carousel from './components/Carousel/Carousel';
 
 function App() {
   return (
-    <div>
-      <p>Hello, World!</p>
-    </div>
+    <>
+      <Header></Header>
+      <Carousel></Carousel>
+    </>
   );
 }
 
