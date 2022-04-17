@@ -7,7 +7,10 @@ const year = new Date().getFullYear();
 
 const Footer = () => {
   return (
-    <div style={{ backgroundColor: '#121212' }} className="text-light">
+    <div
+      style={{ backgroundColor: '#121212' }}
+      className="text-light sticky-bottom"
+    >
       <div className="row w-100 footer-title">
         <div class="col text-center pt-5 pb-3 h3">rekindle.com</div>
       </div>
