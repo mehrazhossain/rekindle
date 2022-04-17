@@ -33,8 +33,14 @@ const Footer = () => {
         </div>
       </div>
       <div className="row w-100">
-        <div class="col text-center pt-5 pb-5 copyright">
-          Copyright &copy;{year} All rights reserved rekindle.
+        <div class="col text-center pt-3 pb-3">
+          <span className="copyright">
+            Copyright &copy;{year} All rights reserved{' '}
+          </span>
+          <span id="brand" className="h6">
+            rekindle
+          </span>
+          .
         </div>
       </div>
     </div>

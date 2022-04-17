@@ -4,9 +4,15 @@ import './Header.css';
 
 const Header = () => {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+    <Navbar
+      className="sticky-top"
+      collapseOnSelect
+      expand="lg"
+      bg="light"
+      variant="light"
+    >
       <Container>
-        <Navbar.Brand href="#home" className="h3">
+        <Navbar.Brand href="#home" className="font-weight-bold h3">
           rekindle
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
