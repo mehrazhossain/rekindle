@@ -3,7 +3,7 @@ import './Signup.css';
 import { Button, Form } from 'react-bootstrap';
 import google from '../../images/social/google-logo.png';
 import facebook from '../../images/social/facebook-logo.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import auth from '../../Firebase.init';
 import {
   useCreateUserWithEmailAndPassword,
@@ -12,18 +12,22 @@ import {
 } from 'react-firebase-hooks/auth';
 
 const SignUp = () => {
-  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // sign up with email & password
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
-  // !signup with google
+  // signup with google
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
-  // !signup with facebook
+  // signup with facebook
   const [signInWithFacebook, facebookUser, facebookLoading, facebookError] =
     useSignInWithFacebook(auth);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // for auth redirect
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || '/';
 
   const handleEmailBlur = (event) => {
     setEmail(event.target.value);
@@ -46,12 +50,8 @@ const SignUp = () => {
     signInWithFacebook();
   };
 
-  if (loading || googleLoading || facebookLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (user || googleUser || facebookUser) {
-    navigate('/');
+  if (user) {
+    navigate(from, { replace: true });
   }
   return (
     <div className="signup-form">

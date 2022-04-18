@@ -3,18 +3,21 @@
     "id": 1,
     "image": "https://i.ibb.co/0fCLwhG/ecom-photography.png",
     "name": "Ecommerce Product Photography",
+    "price": 550,
     "description": "One of my favorite service ecommerce product photography service with a transparent pricing accessible at your fingertips. Used by over 15 fast-growing brands all over the Bangladesh."
   },
   {
     "id": 2,
     "image": "https://i.ibb.co/LhYcRd7/retouching.png",
     "name": "Product Retouching",
+    "price": 400,
     "description": "It's not just another background removal service. It's high-end retouched, ready to go images that grow your business and reduce production costs."
   },
   {
     "id": 3,
     "image": "https://i.ibb.co/cgxZf1k/new-concepts.png",
     "name": "Form New Concepts for Product",
+    "price": 1550,
     "description": "No matter the size of your online store, new concepts can play vital ital role in your ecommerce business. Effective concepts can possibly lure potential customers. Good concepts can potentially influence a purchase decision."
   }
 ]

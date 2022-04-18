@@ -5,46 +5,69 @@ import google from '../../images/social/google-logo.png';
 import facebook from '../../images/social/facebook-logo.png';
 import { Link } from 'react-router-dom';
 import auth from '../../Firebase.init';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import {
   useSignInWithEmailAndPassword,
+  useSignInWithFacebook,
   useSignInWithGoogle,
 } from 'react-firebase-hooks/auth';
 
 const Login = () => {
+  let showError;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // for auth redirect
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || '/';
 
   // !google sign in
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
+  // !facebook sign in
+  const [signInWithFacebook, facebookUser, facebookLoading, facebookError] =
+    useSignInWithFacebook(auth);
 
-  const navigate = useNavigate();
-
+  // sign in with email & password
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-  const handleEmailBlur = (e) => {
-    setEmail(e.target.value);
+  // handle email blur
+  const handleEmailBlur = (event) => {
+    setEmail(event.target.value);
   };
-  const handlePasswordBlur = (e) => {
-    setPassword(e.target.value);
+  // handle password blur
+  const handlePasswordBlur = (event) => {
+    setPassword(event.target.value);
   };
 
+  // !google sign in
+  const handleGoogleSignIn = () => {
+    signInWithGoogle().then(() => {
+      navigate(from, { replace: true });
+    });
+  };
+  // !facebook sign in
+  const handleFacebookSignIn = () => {
+    signInWithFacebook().then(() => {
+      navigate(from, { replace: true });
+    });
+  };
+
+  // !handle form submit
   const handleFormSubmit = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(email, password);
   };
-  // !google sign in
-  const handleGoogleSignIn = () => {
-    signInWithGoogle();
-  };
-  if (user || googleUser) {
-    navigate('/');
+  if (user) {
+    navigate(from, { replace: true });
   }
+
   return (
     <div className="login">
       <h1 className="text-center">Login</h1>
+      {showError}
       <Form onClick={handleFormSubmit} className="w-50 mx-auto mt-5">
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -52,6 +75,7 @@ const Login = () => {
             onBlur={handleEmailBlur}
             type="email"
             placeholder="Enter email"
+            required
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -60,6 +84,7 @@ const Login = () => {
             onBlur={handlePasswordBlur}
             type="password"
             placeholder="Password"
+            required
           />
         </Form.Group>
         <div className="text-center mt-4">
@@ -67,8 +92,8 @@ const Login = () => {
             Login
           </Button>
         </div>
+        <hr className="m-3" />
       </Form>
-      <hr className="m-3" />
       <div>
         <button className="btn btn-dark w-50 mx-auto d-block my-2">
           <img style={{ width: '30px' }} src={google} alt="" />
@@ -79,10 +104,12 @@ const Login = () => {
 
         <button className="btn btn-dark w-50 mx-auto d-block my-2">
           <img style={{ width: '30px' }} alt="" src={facebook} />
-          <span className="px-2">Continue With Facebook</span>
+          <span onClick={handleFacebookSignIn} className="px-2">
+            Continue With Facebook
+          </span>
         </button>
       </div>
-      <div className="text-center">
+      <div className="text-center pb-5">
         <small>
           Don't have an account yet? <Link to={'/signup'}>Sign up now!</Link>
         </small>

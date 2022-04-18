@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import './Service.css';
 
 const Service = ({ service }) => {
-  const { id, image, name, description } = service;
+  const { id, image, name, price, description } = service;
 
   const navigate = useNavigate();
 
@@ -18,6 +18,7 @@ const Service = ({ service }) => {
         <img src={image} className="card-img-top" alt="..." />
         <div className="card-body">
           <h5 className="card-title">{name}</h5>
+          <p>${price}</p>
           <p className="card-text">{description}</p>
         </div>
         <button
@@ -25,7 +26,7 @@ const Service = ({ service }) => {
           type="button"
           class="service-button btn btn-outline-light text-dark w-100"
         >
-          Explore service <HiArrowNarrowRight />
+          Book Now <HiArrowNarrowRight />
         </button>
       </div>
     </div>
