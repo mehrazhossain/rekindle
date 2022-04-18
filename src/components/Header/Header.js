@@ -1,10 +1,21 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
+import auth from '../../Firebase.init';
 import CustomLink from '../CustomLink/CustomLink';
 import './Header.css';
 
 const Header = () => {
+  const [user, loading, error] = useAuthState(auth);
+  console.log(user);
+  const handleSignOut = () => {
+    signOut(auth);
+  };
+  if (loading) {
+    return <p>Loading...</p>;
+  }
   return (
     <Navbar
       className="sticky-top"
@@ -26,15 +37,21 @@ const Header = () => {
               <CustomLink to="/">Home</CustomLink>
             </Nav.Link>
             <Nav.Link>
-              <CustomLink to={'/blogs'}>Blogs</CustomLink>
+              <CustomLink to={'/blogs'}>Blog</CustomLink>
             </Nav.Link>
             <Nav.Link>
               <CustomLink to={'/about'}>About me</CustomLink>
             </Nav.Link>
-            <Nav.Link className="btn login-btn">
-              <span className="h6">
-                <CustomLink to={'/login'}>Login</CustomLink>
-              </span>
+            <Nav.Link>
+              {user ? (
+                <p onClick={handleSignOut} className="sign-out">
+                  Sign out
+                </p>
+              ) : (
+                <Link className="login" to={'/login'}>
+                  Login
+                </Link>
+              )}
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

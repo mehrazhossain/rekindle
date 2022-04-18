@@ -1,6 +1,22 @@
+.login {
+  text-decoration: none;
+  color: black;
+}
+.login:hover {
+  color: black;
+  font-weight: 500;
+}
 .login-btn {
   background-color: #ffdeda;
   width: 100px;
   margin-left: 20px;
   outline: 2px solid black;
+}
+.sign-out {
+  text-decoration: none;
+  color: black;
+}
+.sign-out:hover {
+  color: black;
+  font-weight: 500;
 }
