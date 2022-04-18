@@ -14,6 +14,7 @@ import {
 import toast, { Toaster } from 'react-hot-toast';
 
 const SignUp = () => {
+  let handleError;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // email verification
@@ -46,7 +47,7 @@ const SignUp = () => {
     e.preventDefault();
     createUserWithEmailAndPassword(email, password);
     await sendEmailVerification();
-    toast.success('Check your email and verify');
+    toast.success('Check your email for verify');
   };
 
   // !signup with google
@@ -62,6 +63,12 @@ const SignUp = () => {
     if (user.emailVerified) {
       navigate(from, { replace: true });
     }
+  }
+
+  if (error) {
+    handleError = (
+      <p className="text-danger text-center">Error: {error.message}</p>
+    );
   }
   return (
     <div className="signup-form">
@@ -99,6 +106,7 @@ const SignUp = () => {
         </div>
         <hr className="m-3" />
       </Form>
+      {handleError}
       <div>
         <button className="btn btn-dark w-50 mx-auto d-block my-2">
           <img style={{ width: '30px' }} src={google} alt="" />
