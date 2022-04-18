@@ -13,7 +13,7 @@ const Service = ({ service }) => {
   };
 
   return (
-    <div class="col">
+    <div className="col">
       <div className="card h-100">
         <img src={image} className="card-img-top" alt="..." />
         <div className="card-body">
@@ -24,7 +24,7 @@ const Service = ({ service }) => {
         <button
           onClick={() => handleExploreButton(id)}
           type="button"
-          class="service-button btn btn-outline-light text-dark w-100"
+          className="service-button btn btn-outline-light text-dark w-100"
         >
           Book Now <HiArrowNarrowRight />
         </button>

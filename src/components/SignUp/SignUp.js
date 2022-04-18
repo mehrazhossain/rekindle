@@ -7,13 +7,18 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import auth from '../../Firebase.init';
 import {
   useCreateUserWithEmailAndPassword,
+  useSendEmailVerification,
   useSignInWithFacebook,
   useSignInWithGoogle,
 } from 'react-firebase-hooks/auth';
+import toast, { Toaster } from 'react-hot-toast';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // email verification
+  const [sendEmailVerification, sending, verificationError] =
+    useSendEmailVerification(auth);
   // sign up with email & password
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
@@ -36,9 +41,12 @@ const SignUp = () => {
     setPassword(event.target.value);
   };
 
-  const handleFormSubmit = (e) => {
+  // sign up with email & password
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(email, password);
+    await sendEmailVerification();
+    toast.success('Check your email and verify');
   };
 
   // !signup with google
@@ -51,7 +59,9 @@ const SignUp = () => {
   };
 
   if (user) {
-    navigate(from, { replace: true });
+    if (user.emailVerified) {
+      navigate(from, { replace: true });
+    }
   }
   return (
     <div className="signup-form">
@@ -85,6 +95,7 @@ const SignUp = () => {
           <Button className="w-50" variant="dark" type="submit">
             Sign up
           </Button>
+          <Toaster></Toaster>
         </div>
         <hr className="m-3" />
       </Form>

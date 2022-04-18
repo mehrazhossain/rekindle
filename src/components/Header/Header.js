@@ -33,16 +33,16 @@ const Header = () => {
             <Nav.Link href="#pricing">Pricing</Nav.Link> */}
           </Nav>
           <Nav>
-            <Nav.Link>
+            <Nav.Link as={'li'}>
               <CustomLink to="/">Home</CustomLink>
             </Nav.Link>
-            <Nav.Link>
+            <Nav.Link as={'li'}>
               <CustomLink to={'/blogs'}>Blog</CustomLink>
             </Nav.Link>
-            <Nav.Link>
+            <Nav.Link as={'li'}>
               <CustomLink to={'/about'}>About me</CustomLink>
             </Nav.Link>
-            <Nav.Link>
+            <Nav.Link as={'li'}>
               {user ? (
                 <p onClick={handleSignOut} className="sign-out">
                   Sign out

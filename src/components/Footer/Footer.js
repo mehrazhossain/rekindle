@@ -9,9 +9,9 @@ const Footer = () => {
   return (
     <div style={{ backgroundColor: '#121212' }} className="text-light">
       <div className="row w-100 footer-title">
-        <div class="col text-center pt-5 pb-3 h3">rekindle.com</div>
+        <div className="col text-center pt-5 pb-3 h3">rekindle.com</div>
       </div>
-      <div class="row w-100">
+      <div className="row w-100">
         <div className="col footer-nav">
           <ul>
             <li>Home</li>
@@ -33,7 +33,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="row w-100">
-        <div class="col text-center pt-3 pb-3">
+        <div className="col text-center pt-3 pb-3">
           <span className="copyright">
             Copyright &copy;{year} All rights reserved{' '}
           </span>

@@ -74,10 +74,15 @@ const Login = () => {
     toast.success('Sent email');
   };
 
+  if (error) {
+    showError = (
+      <p className="text-danger text-center">Error: {error.message}</p>
+    );
+  }
+
   return (
     <div className="login">
       <h1 className="text-center">Login</h1>
-      {showError}
       <Form onClick={handleFormSubmit} className="w-50 mx-auto mt-5">
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -110,9 +115,11 @@ const Login = () => {
           <Button className="w-50" variant="dark" type="submit">
             Login
           </Button>
+          <Toaster />
         </div>
         <hr className="m-3" />
       </Form>
+      {showError}
       <div>
         <button className="btn btn-dark w-50 mx-auto d-block my-2">
           <img style={{ width: '30px' }} src={google} alt="" />
