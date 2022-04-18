@@ -5,12 +5,18 @@ import google from '../../images/social/google-logo.png';
 import facebook from '../../images/social/facebook-logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../Firebase.init';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import {
+  useCreateUserWithEmailAndPassword,
+  useSignInWithGoogle,
+} from 'react-firebase-hooks/auth';
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
+  // signin with google
+  const [signInWithGoogle, googleUser, googleLoading, googleError] =
+    useSignInWithGoogle(auth);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,7 +32,13 @@ const SignUp = () => {
     e.preventDefault();
     createUserWithEmailAndPassword(email, password);
   };
-  if (user) {
+
+  // !google sign in
+  const handleSignInWithGoogle = () => {
+    signInWithGoogle();
+  };
+
+  if (user || googleUser) {
     navigate('/');
   }
   return (
@@ -63,23 +75,25 @@ const SignUp = () => {
           </Button>
         </div>
         <hr className="m-3" />
-        <div>
-          <button className="btn btn-dark w-50 mx-auto d-block my-2">
-            <img style={{ width: '30px' }} src={google} alt="" />
-            <span className="px-2">Continue With Google</span>
-          </button>
-
-          <button className="btn btn-dark w-50 mx-auto d-block my-2">
-            <img style={{ width: '30px' }} alt="" src={facebook} />
-            <span className="px-2">Continue With Facebook</span>
-          </button>
-        </div>
-        <div className="text-center">
-          <small>
-            Have an account? <Link to={'/login'}>Login now!</Link>
-          </small>
-        </div>
       </Form>
+      <div>
+        <button className="btn btn-dark w-50 mx-auto d-block my-2">
+          <img style={{ width: '30px' }} src={google} alt="" />
+          <span onClick={handleSignInWithGoogle} className="px-2">
+            Continue With Google
+          </span>
+        </button>
+
+        <button className="btn btn-dark w-50 mx-auto d-block my-2">
+          <img style={{ width: '30px' }} alt="" src={facebook} />
+          <span className="px-2">Continue With Facebook</span>
+        </button>
+      </div>
+      <div className="text-center">
+        <small>
+          Have an account? <Link to={'/login'}>Login now!</Link>
+        </small>
+      </div>
     </div>
   );
 };
