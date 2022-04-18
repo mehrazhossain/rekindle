@@ -7,16 +7,21 @@ import { Link } from 'react-router-dom';
 import auth from '../../Firebase.init';
 import { useNavigate, useLocation } from 'react-router';
 import {
+  useSendPasswordResetEmail,
   useSignInWithEmailAndPassword,
   useSignInWithFacebook,
   useSignInWithGoogle,
 } from 'react-firebase-hooks/auth';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
   let showError;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // reset password
+  const [sendPasswordResetEmail, sending, resetPasswordError] =
+    useSendPasswordResetEmail(auth);
   // for auth redirect
   const location = useLocation();
   const navigate = useNavigate();
@@ -63,6 +68,11 @@ const Login = () => {
   if (user) {
     navigate(from, { replace: true });
   }
+  // handle reset password
+  const handleResetPassword = async () => {
+    await sendPasswordResetEmail(email);
+    toast.success('Sent email');
+  };
 
   return (
     <div className="login">
@@ -87,6 +97,15 @@ const Login = () => {
             required
           />
         </Form.Group>
+        <div>
+          <p
+            onClick={handleResetPassword}
+            className="text-primary forget-password"
+          >
+            Forget password?
+          </p>
+          <Toaster />
+        </div>
         <div className="text-center mt-4">
           <Button className="w-50" variant="dark" type="submit">
             Login
