@@ -16,23 +16,21 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
   let showError;
+  let showLoader;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   // reset password
-  const [sendPasswordResetEmail, sending, resetPasswordError] =
-    useSendPasswordResetEmail(auth);
+  const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
   // for auth redirect
   const location = useLocation();
   const navigate = useNavigate();
   const from = location?.state?.from?.pathname || '/';
 
   // !google sign in
-  const [signInWithGoogle, googleUser, googleLoading, googleError] =
-    useSignInWithGoogle(auth);
+  const [signInWithGoogle, googleLoading] = useSignInWithGoogle(auth);
   // !facebook sign in
-  const [signInWithFacebook, facebookUser, facebookLoading, facebookError] =
-    useSignInWithFacebook(auth);
+  const [signInWithFacebook, facebookLoading] = useSignInWithFacebook(auth);
 
   // sign in with email & password
   const [signInWithEmailAndPassword, user, loading, error] =
@@ -79,7 +77,9 @@ const Login = () => {
       <p className="text-danger text-center">Error: {error.message}</p>
     );
   }
-
+  if (loading || googleLoading || facebookLoading) {
+    showLoader = <p className="text-primary text-center h1">Loading</p>;
+  }
   return (
     <div className="login">
       <h1 className="text-center">Login</h1>
@@ -102,6 +102,7 @@ const Login = () => {
             required
           />
         </Form.Group>
+        {showLoader}
         <div>
           <p
             onClick={handleResetPassword}

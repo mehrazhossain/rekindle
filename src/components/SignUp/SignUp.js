@@ -18,17 +18,14 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // email verification
-  const [sendEmailVerification, sending, verificationError] =
-    useSendEmailVerification(auth);
+  const [sendEmailVerification] = useSendEmailVerification(auth);
   // sign up with email & password
-  const [createUserWithEmailAndPassword, user, loading, error] =
+  const [createUserWithEmailAndPassword, user, error] =
     useCreateUserWithEmailAndPassword(auth);
   // signup with google
-  const [signInWithGoogle, googleUser, googleLoading, googleError] =
-    useSignInWithGoogle(auth);
+  const [signInWithGoogle] = useSignInWithGoogle(auth);
   // signup with facebook
-  const [signInWithFacebook, facebookUser, facebookLoading, facebookError] =
-    useSignInWithFacebook(auth);
+  const [signInWithFacebook] = useSignInWithFacebook(auth);
 
   // for auth redirect
   const location = useLocation();
