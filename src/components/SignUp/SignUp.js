@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../Firebase.init';
 import {
   useCreateUserWithEmailAndPassword,
+  useSignInWithFacebook,
   useSignInWithGoogle,
 } from 'react-firebase-hooks/auth';
 
@@ -14,9 +15,12 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
-  // signin with google
+  // !signup with google
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
+  // !signup with facebook
+  const [signInWithFacebook, facebookUser, facebookLoading, facebookError] =
+    useSignInWithFacebook(auth);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,12 +37,20 @@ const SignUp = () => {
     createUserWithEmailAndPassword(email, password);
   };
 
-  // !google sign in
+  // !signup with google
   const handleSignInWithGoogle = () => {
     signInWithGoogle();
   };
+  // !signup with facebook
+  const handleFacebookSignUp = () => {
+    signInWithFacebook();
+  };
 
-  if (user || googleUser) {
+  if (loading || googleLoading || facebookLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (user || googleUser || facebookUser) {
     navigate('/');
   }
   return (
@@ -86,7 +98,9 @@ const SignUp = () => {
 
         <button className="btn btn-dark w-50 mx-auto d-block my-2">
           <img style={{ width: '30px' }} alt="" src={facebook} />
-          <span className="px-2">Continue With Facebook</span>
+          <span onClick={handleFacebookSignUp} className="px-2">
+            Continue With Facebook
+          </span>
         </button>
       </div>
       <div className="text-center">
